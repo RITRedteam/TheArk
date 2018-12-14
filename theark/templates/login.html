@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page %}
+<div style="text-align: center">
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+            <div style="color: red;">
+            {% for message in messages %}
+                {{ message }}<br />
+            {% endfor %}
+            <div />
+    {% endif %}
+{% endwith %}
+<div style="color: black">
+<form method=post enctype=multipart/form-data>
+  Username: <input type=text name=username> <br />
+  Password: <input type=password name=password> <br />
+  <input type=submit value=Login>
+</form>
+<div/>
+<div/>
+{% endblock %}

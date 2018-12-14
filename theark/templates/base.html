@@ -1,0 +1,17 @@
+<!doctype html>
+<title>The Ark</title>
+<h1 style="text-align:center">The Ark</h1>
+<head>
+</head>
+<body>
+
+{% if COOKIE_KEY in request.cookies and request.cookies[COOKIE_KEY] == COOKIE_VALUE %}
+    <a href="/logout" style="float: right;" class="active">
+        Logout
+    </a>
+{% endif %}
+<br />
+
+{% block page %}{% endblock %}
+
+</body>
