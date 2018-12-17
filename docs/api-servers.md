@@ -12,10 +12,11 @@ addresses that are assigned to it.
 __Type:__ `POST`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
-| `count`  | integer  | yes (15)           | The number of IP addresses to reserve (max 50) |
+| name   | string   | no                 | The name of the server                         |
+| count  | integer  | yes (15)           | The number of IP addresses to reserve (max 50) |
 
 __Request Example:__
 ```json
@@ -46,13 +47,14 @@ given path to the web URL.
 __Type:__ `POST`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
-| `count`  | integer  | yes (15)           | The number of IP addresses to reserve (max 50) |
-| `reserve`| bool     | yes (yes)          | Whether or not TheArk should reserve these ips |
-| `tcp`    | dict     | yes (none)         | The TCP forward settings for the server        |
-| `http`   | dict     | yes (none)         | The HTTP forward settings for the server       |
+| name     | string   | no                 | The name of the server                         |
+| count    | integer  | yes (15)           | The number of IP addresses to reserve (max 50) |
+| reserve  | bool     | yes (yes)          | Whether or not TheArk should reserve these ips |
+| tcp      | dict     | yes (none)         | The TCP forward settings for the server        |
+| http     | dict     | yes (none)         | The HTTP forward settings for the server       |
 
 __Request Example:__
 ```json
@@ -90,9 +92,10 @@ Delete a server from The Ark and cleanup all the forwards
 __Type:__ `POST`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
+| name   | string   | no                 | The name of the server                         |
 
 __Request Example:__
 ```json

@@ -8,6 +8,7 @@ Login with a username and password to The Ark server
 __Type:__ `POST`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
 | username | string   | no                 | The username to authenticate with              |

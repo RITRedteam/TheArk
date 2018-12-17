@@ -9,10 +9,11 @@ If no `count` is specified, or `count` is < 1, The Ark will return all of the ad
 __Type:__ `GET`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
-| `count`  | integer  | yes (-1)           | The number of IP addresses to query from The Ark |
+|  name    | string   | no                 | The name of the server                         |
+|  count   | integer  | yes (-1)           | The number of IP addresses to query from The Ark |
 
 __Request Example:__
 ```json
@@ -40,9 +41,10 @@ the json that was sent during the `/registerServer` call.
 __Type:__ `GET`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
+|   name   | string   | no                 | The name of the server                         |
 
 __Request Example:__
 ```json
@@ -80,9 +82,10 @@ to redirect the traffic. This can be useful if you want to host redirectors on m
 __Type:__ `GET`
 
 __Request Parameters:__
+
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| `name`   | string   | no                 | The name of the server                         |
+| name     | string   | no                 | The name of the server                         |
 
 __Request Example:__
 ```json
