@@ -4,7 +4,7 @@ API functions for requesting information from the server.
 ## /getAddresses
 Get assigned addreses from The Ark for the given server. You may specify a count in which the server will return `count`
 number of random addresses from the pool, this is useful for getting a random IP address to use from The Ark.
-If no `count` is specified, or `count` is < 1, The Ark will return all of the addresses.
+If no `count` is specified, The Ark will return all of the addresses.
 
 __Type:__ `GET`
 
@@ -13,7 +13,7 @@ __Request Parameters:__
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
 |  name    | string   | no                 | The name of the server                         |
-|  count   | integer  | yes (-1)           | The number of IP addresses to query from The Ark |
+|  count   | integer  | yes (None)         | The number of IP addresses to query from The Ark |
 
 __Request Example:__
 ```json
