@@ -1,12 +1,16 @@
 import random
 from flask import request, abort, jsonify
+from flask_jsonschema_validator import JSONSchemaValidator
 
 from . import app, is_authed
 from .networking import discover_hosts
 
+
+
 database = app.config["DATABASE"]
 
 @app.route('/registerServer', methods=['POST'])
+@app.validate("v1", "registerServer")
 def registerServer():
     """Register a new server with TheArk
     
