@@ -9,26 +9,6 @@ def main():
     else:
         return redirect(url_for('login'))
 
-@app.route('/requestIps', methods=['GET', 'POST'])
-def api_requestIps():
-    """Handle a request for X ammount of IP addresses.
-    Mark all the IPs down in the database under the server name, but DONT assign them to the interface
-    Return the list of IPs for the server
-    Maybe cap X so that they cant reserve all the ips
-    TODO
-    """
-    return "not implemented"
-
-@app.route('/requestRedirect', methods=['GET', 'POST'])
-def api_requestRedirect():
-    """Handle a request for an nginx redirection of X ip addresses.
-    Gather X ips and assign them to virtual aliases, mark them down in the DB
-    Generate an nginx server block that listens on the ips, for each of the PORTS specified
-    Return the list of IPs to the client so they can use them
-    Maybe cap X so that they cant reserve all the ips
-    TODO
-    """
-    return "not implemented"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -2,6 +2,7 @@
 CREATE TABLE `servers` (
 	`server_name`		TEXT,
 	`server_url`	    TEXT,
+	`server_type`		TEXT,
 	`creation_date`	    TEXT
 );
 

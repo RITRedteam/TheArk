@@ -116,3 +116,16 @@ class Database(object):
             columns = [t[0] for t in self.cur.description]
             tables[table[0]] = columns
         return tables
+    
+    #### Custom Queries
+    def is_ip_taken(self, ip):
+        """Check whether or not an IP address is taken by another service
+
+        Args:
+            ip: The ip address to look for
+        Returns:
+            bool: Whether the ip is reserved already
+        """
+        qry = 'SELECT EXISTS(SELECT 1 FROM ips WHERE address = ?);'
+        self.cur.execute(qry, (ip,))
+        return self.cur.fetchone()

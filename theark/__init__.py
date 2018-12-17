@@ -16,4 +16,4 @@ def is_authed(request):
     else:
         return False
 
-from . import routes
+from . import routes, api
