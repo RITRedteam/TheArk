@@ -1,0 +1,408 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "TheArk API",
+    "version": "1.0",
+    "contact": {
+      "name": "knif3",
+      "url": "https://github.com/RITRedteam/TheArk"
+    },
+    "description": "Redteam Ark API"
+  },
+  "host": "theark.redteam",
+  "paths": {
+    "/registerServer": {
+      "post": {
+        "responses": {
+          "200": {
+            "$ref": "#/responses/server_response"
+          },
+          "400": {
+            "$ref": "#/responses/error_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "Registers a server with The Ark",
+        "description": "Registers a server with The Ark.",
+        "operationId": "0",
+        "tags": [
+          "server"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/registerRedirectServer": {
+      "post": {
+        "responses": {
+          "200": {
+            "$ref": "#/responses/server_response"
+          },
+          "400": {
+            "$ref": "#/responses/error_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "Registers a redirect server with The Ark.",
+        "description": "Registers a redirect server with The Ark.",
+        "tags": [
+          "server"
+        ],
+        "operationId": "1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer"
+                },
+                "reserve": {
+                  "type": "boolean"
+                },
+                "tcp": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "string"
+                    },
+                    "ports": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "server",
+                    "ports"
+                  ]
+                },
+                "http": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "server",
+                    "path"
+                  ]
+                }
+              }
+            },
+            "x-examples": {
+              "application/json": {
+                "name": "ServerName",
+                "count": 20,
+                "reserve": true,
+                "tcp": {
+                  "server": "10.80.100.1",
+                  "ports": [
+                    22,
+                    443,
+                    4444
+                  ]
+                },
+                "http": {
+                  "server": "http://misconfiguration.party/",
+                  "path": "/"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/deleteServer": {
+      "post": {
+        "responses": {
+          "200": {
+            "$ref": "#/responses/server_response"
+          },
+          "400": {
+            "$ref": "#/responses/error_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "Delete a server from the Ark",
+        "description": "Delete a server from the Ark.",
+        "tags": [
+          "server"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/getAddresses": {
+      "get": {
+        "responses": {
+          "200": {
+            "$ref": "#/responses/server_response"
+          },
+          "400": {
+            "$ref": "#/responses/server_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "Get assigned addreses from The Ark for the given server.",
+        "description": "Get assigned addreses from The Ark for the given server.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/getNginxConfig": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "NGINX": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "NGINX"
+              ]
+            }
+          },
+          "400": {
+            "$ref": "#/responses/error_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "If the server is a redirect server, return the NGINX server block that The Ark uses (or would use) to redirect the traffic. ",
+        "description": "If the server is a redirect server, return the NGINX server block that The Ark uses (or would use) to redirect the traffic.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/getServerSettings": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "integer"
+                },
+                "reserve": {
+                  "type": "boolean"
+                },
+                "tcp": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "string"
+                    },
+                    "ports": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "server",
+                    "ports"
+                  ]
+                },
+                "http": {
+                  "type": "object",
+                  "properties": {
+                    "server": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "server",
+                    "path"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/error_response"
+          },
+          "403": {
+            "description": ""
+          }
+        },
+        "summary": "Get the server settings for the given server",
+        "description": "Get the server settings for the given server",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {},
+  "responses": {
+    "server_response": {
+      "description": "",
+      "schema": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "error_response": {
+      "description": "Response for error",
+      "schema": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "parameters": {},
+  "tags": [
+    {
+      "name": "server",
+      "description": "API calls the deal with adding and removing servers"
+    }
+  ]
+}
