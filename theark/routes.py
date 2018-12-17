@@ -12,6 +12,10 @@ def main():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Login to the server
+    TODO: Fix this code and make it better, when that is done,
+    update 'docs/api-authentication.md' with way to properly auth
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
