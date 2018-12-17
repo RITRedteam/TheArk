@@ -14,7 +14,7 @@ def setup():
     app.config['DATABASE'] = Database('files/theark.sqlite', 'files/layout.sql')
     app.config['networking'] = {}
     net_init()
-    from theark import routes, api
+    from theark import routes, api  # pylint: disable=w0612
 
 
 def cleanup():

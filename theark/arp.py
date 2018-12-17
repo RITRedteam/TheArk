@@ -4,6 +4,7 @@
 # https://github.com/krig/send_arp.py
 # http://dk0d.blogspot.com/2016/07/code-for-sending-arp-request-with-raw.html
 
+
 #import fcntl
 import socket
 import struct
@@ -16,7 +17,7 @@ def isIpTaken(dev, ip):
     '''
     timeout = 0.25
     # initialize the socket to listen on (0x0003)
-    sock = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(0x0003))
+    sock = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.htons(0x0003))  # pylint: disable=E1101
     sock.settimeout(timeout)
     isdone = Event() # An event to wait for the listener
     retval = [] # Where to store the return value
@@ -104,7 +105,7 @@ def send_arp(device, ip_dst, mac_src=None):
     if ip_dst == ip_src:
         return True
     # Create raw socket
-    sock = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.SOCK_RAW)
+    sock = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.SOCK_RAW)  # pylint: disable=E1101
     # Bind to the interface given
     sock.bind((device, socket.SOCK_RAW))
     if not mac_src:
