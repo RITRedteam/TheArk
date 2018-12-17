@@ -122,7 +122,6 @@ class Database(object):
     def is_ip_taken(self, ip):
         """Check whether or not an IP address is taken by another service
 
-        TODO: Make this return a bool
         Args:
             ip (str): The ip address to look for
         Returns:
@@ -130,7 +129,9 @@ class Database(object):
         """
         qry = 'SELECT EXISTS(SELECT 1 FROM ips WHERE address = ?);'
         self.cur.execute(qry, (ip,))
-        return self.cur.fetchone()
+        if self.cur.fetchone()[0] == 0:
+            return False
+        return True
     
     def is_servername_taken(self, name):
         """Check if a servername is already taken in the database
@@ -181,8 +182,8 @@ class Database(object):
         Returns:
             bool: if the addresses were added
         """
-        qry = "INSERT INTO ips VALUES (?)"
-        values = [(name, addr) for addr in addresses]
+        qry = "INSERT INTO ips VALUES (?, ?, ?)"
+        values = [(name, addr, None) for addr in addresses]
         self.cur.executemany(qry, values)
         return True
     

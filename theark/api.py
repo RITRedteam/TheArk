@@ -9,8 +9,7 @@ def registerServer():
     """Register a new server with TheArk
     
     See docs/api-servers.md for json spec
-    
-    TODO: Implement this function
+    TODO: Add validate of properties here
     """
     if not is_authed(request):  abort(403)
     data = request.get_json(force=True)

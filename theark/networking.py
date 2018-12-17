@@ -50,7 +50,7 @@ def discover_hosts(count=20):
     for ip in hosts:
         # Make sure the ip is not in use
         if isIpTaken(config['interface'], ip) \
-            or app.config['DATABASE'].isIpTaken(ip) \
+            or app.config['DATABASE'].is_ip_taken(ip) \
             or ip in addresses:
             continue
         # Add the ip to the list
