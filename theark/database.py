@@ -194,6 +194,6 @@ class Database(object):
         Returns:
             list[str]: A list of all the ips assigned to the server
         """
-        qry = "SELECT FROM ips WHERE server_name = ?"
-        self.cur.execute(qry, name)
-        return self.cur.fetchall()
+        qry = "SELECT address FROM ips WHERE server_name = ?"
+        self.cur.execute(qry, (name,))
+        return [a[0] for a in self.cur.fetchall() if a]

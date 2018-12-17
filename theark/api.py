@@ -1,4 +1,6 @@
+import random
 from flask import request, abort, jsonify
+
 from . import app, is_authed
 from .networking import discover_hosts
 
@@ -17,6 +19,7 @@ def registerServer():
     addresses = discover_hosts(data.get("count", 15))
     database.add_server(_type, data)
     database.add_addresses(data.get('name'), addresses)
+    database.commit()
     return jsonify({
         "name": data.get('name'),
         "addresses": addresses
@@ -53,16 +56,36 @@ def deleteServer():
 
 @app.route('/getAddresses', methods=['GET'])
 def getAddresses():
-    """Register a new redirect server with TheArk
+    """Get ip addresses associated with the server name
     
     See docs/api-information.md for json spec
-    
-    TODO: Implement this function
     """
     if not is_authed(request):  abort(403)
     data = request.get_json(force=True)
-    data['error'] = "API call not yet implemented"
-    return jsonify(data)
+    # Validate required params
+    if 'name' not in data:
+        return jsonify({"error": "'name' must be specified"})
+    count = None
+    if 'count' in data and data['count'] != None:
+        try:
+            count = int(data['count'])
+        except ValueError:
+            return jsonify({"error": "'count' must be an integer > 0"})
+    
+    addrs = database.get_addresses(data['name'])  # Get all the addresses for name from db
+
+    retval = {}
+    retval['name'] = data['name']
+
+    # If req is only for X num of ips, shuffle it and return random X count
+    if count and count < len(addrs):
+        random.shuffle(addrs)
+        retval['addresses'] = [addrs.pop() for i in range(count)]
+    else:
+        # Else just return all the addrs
+        retval['addresses'] = addrs
+
+    return jsonify(retval)
 
 
 @app.route('/getServerSettings', methods=['GET'])
