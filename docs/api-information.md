@@ -49,7 +49,7 @@ __Request Parameters:__
 __Request Example:__
 ```json
 {
-    "name": "ServerName",
+    "name": "ServerName"
 }
 ```
 

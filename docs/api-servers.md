@@ -100,13 +100,13 @@ __Request Parameters:__
 __Request Example:__
 ```json
 {
-    "name": "ServerName",
+    "name": "ServerName"
 }
 ```
 
 __Response Example:__
 ```json
 {
-    "name": "ServerName",
+    "name": "ServerName"
 }
 ```
