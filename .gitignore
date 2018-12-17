@@ -105,3 +105,4 @@ venv.bak/
 
 files/*.sqlite
 .vscode/*
+files/test_api.py
