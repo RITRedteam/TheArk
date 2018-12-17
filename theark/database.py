@@ -14,6 +14,7 @@
 
 import os
 import sqlite3
+import datetime
 
 class Database(object):
     """
@@ -121,11 +122,77 @@ class Database(object):
     def is_ip_taken(self, ip):
         """Check whether or not an IP address is taken by another service
 
+        TODO: Make this return a bool
         Args:
-            ip: The ip address to look for
+            ip (str): The ip address to look for
         Returns:
             bool: Whether the ip is reserved already
         """
         qry = 'SELECT EXISTS(SELECT 1 FROM ips WHERE address = ?);'
         self.cur.execute(qry, (ip,))
         return self.cur.fetchone()
+    
+    def is_servername_taken(self, name):
+        """Check if a servername is already taken in the database
+        
+        TODO: Implement this function
+        Args:
+            name (str): The name of the server
+        Returns:
+            bool: Whether or not the name is in use
+        """
+        return False
+    
+    def add_server(self, _type, data):
+        """Add the settings for a server to the database
+        Args:
+            _type (str): the type of server that is is, either 'default' or 'redirect'
+            data (dict): The JSON data of the API
+        Returns:
+            bool: Whether or not the server was added
+        """
+        name = data.get('name')
+        if _type == 'redirect':
+            reserve_addresses = data.get("reserve", True)  # Default to true for redirect servers
+        else:
+            reserve_addresses = False
+        # Add to the servers field
+        qry = "INSERT INTO servers VALUES (?, ?, ?, ?)"
+        self.cur.execute(qry, (name, _type, reserve_addresses, None))
+        if _type == 'redirect':
+            qry = "INSERT INTO server_redirects VALUES (?, ?, ?, ?)"
+            self.cur.execute(qry, (name,
+                             data.get("http", {}).get("server", None),   # server_http_url
+                             data.get("http", {}).get("path", "/"),      # server_http_path
+                             data.get("tcp", {}).get("server", None)     # server_tcp_url
+                            ))
+        
+            # Add the ports if they are there
+            values = [(name, port) for port in data.get("tcp", {}).get("ports", [])]
+            qry = "INSERT INTO server_ports VALUES (?)"
+            self.cur.executemany(qry, values)
+        return True
+    
+    def add_addresses(self, name, addresses):
+        """Insert the addresses into the DB for the server given
+        Args:
+            name (str): The server to add the IPs under
+            addresses (str[]): The ip addresses to add
+        Returns:
+            bool: if the addresses were added
+        """
+        qry = "INSERT INTO ips VALUES (?)"
+        values = [(name, addr) for addr in addresses]
+        self.cur.executemany(qry, values)
+        return True
+    
+    def get_addresses(self, name):
+        """Return COUNT number of addresses for the server
+        Args:
+            name (str): the name of the server
+        Returns:
+            list[str]: A list of all the ips assigned to the server
+        """
+        qry = "SELECT FROM ips WHERE server_name = ?"
+        self.cur.execute(qry, name)
+        return self.cur.fetchall()

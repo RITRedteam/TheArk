@@ -3,15 +3,15 @@ CREATE TABLE `servers` (
 	`server_name`		TEXT,
 	`server_type`		TEXT,
 	`assign_addresses`	BOOLEAN,
-	`creation_date`	    TEXT
+	`creation_date`	    timestamp
 );
 
 -- This table hold information for redirect servers
 CREATE TABLE `server_redirects` (
 	`server_name`		TEXT,
 	`server_http_url`	TEXT,
-	`server_tcp_url`	TEXT,
-	`server_http_path`	TEXT
+	`server_http_path`	TEXT,
+	`server_tcp_url`	TEXT
 );
 
 -- Hold all the TCP ports to be forwarded for a server
@@ -31,4 +31,4 @@ CREATE TABLE `ips` (
 -- This table holds all the ip addresses that we know of that are not currently in use
 CREATE TABLE `available_ips` (
 	`ip`				TEXT
-)
+);

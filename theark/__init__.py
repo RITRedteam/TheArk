@@ -13,7 +13,6 @@ app.secret_key = b'magic ip addresses'
 def is_authed(request):
     if COOKIE_KEY in request.cookies and request.cookies[COOKIE_KEY] == COOKIE_VALUE:
         return True
-    else:
-        return False
-
-from . import routes, api
+    if request.get_json(force=True).get("auth-token", "") == COOKIE_VALUE:
+        return True
+    return False

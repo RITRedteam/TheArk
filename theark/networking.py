@@ -29,7 +29,7 @@ def net_init():
         config['base_ip'] = _getIpFromDevice(config['net_device'])
     else:
         config['base_ip'] = _getIp()
-        config['inferface'] = _getInterfaceNameFromIp(config['base_ip'])
+        config['interface'] = _getInterfaceNameFromIp(config['base_ip'])
     config['netmask'] = _getSubnetMaskFromIp(config['base_ip'])  # Subnet mask
 
 def discover_hosts(count=20):
