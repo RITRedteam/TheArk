@@ -10,7 +10,7 @@ def setup():
     2. Find the original IP of the host
     """
     # Open a database
-    app.config['DATABASE'] = Database('theark.sqlite', 'files/layout.sql')
+    app.config['DATABASE'] = Database('files/theark.sqlite', 'files/layout.sql')
     app.config['networking'] = {}
     app.config['networking']['default_ip'] = getIp()
     app.config['networking']['interface'] = getInterfaceNameFromIp(app.config['networking']['default_ip'])
