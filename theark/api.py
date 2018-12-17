@@ -27,10 +27,30 @@ def deleteServer():
     """
     pass
 
+
 @app.route('/getAddresses', methods=['GET'])
 def getAddresses():
     """Register a new redirect server with TheArk
     
-    See docs/api-servers.md for json spec
+    See docs/api-information.md for json spec
+    """
+    pass
+
+
+@app.route('/getServerSettings', methods=['GET'])
+def getServerSettings():
+    """Return the settings that are registered for the server.
+
+    See docs/api-information.md for json spec
+    """
+    pass
+
+
+@app.route('/getNginxConfig', methods=['GET'])
+def getNginxConfig():
+    """If the server is a `redirect` server, return the NGINX server block
+    that The Ark uses (or would use) to redirect the traffic.
+    
+    See docs/api-information.md for json spec
     """
     pass
