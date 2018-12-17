@@ -5,9 +5,15 @@ Documentation of all the API functions for The Ark. You can find implementations
 All data to and from the server will be of type `application/json`.
 Responses from the server will be one of three status codes:
 
-`200`: The request went through
+`200`: The request went through, however, if `error` is specified in the JSON, then it will contain the error message.
 
-`400`: Missing or invalid parameters
+```json
+{
+    "error": "server name 'ServerName' is already taken"
+}
+```
+
+`400`: Missing or invalid parameters or invalid type
 
 `403`: Authentication Error. See [authentication](./api-authentication.md) for more details
 

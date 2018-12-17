@@ -1,4 +1,4 @@
-from flask import request, redirect, render_template, url_for, flash, make_response
+from flask import request, redirect, render_template, url_for, flash, make_response, jsonify
 
 from . import app, is_authed, USERNAME, PASSWORD, COOKIE_KEY, COOKIE_VALUE
 
@@ -12,17 +12,24 @@ def main():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Login to the server
-    TODO: Fix this code and make it better, when that is done,
-    update 'docs/api-authentication.md' with way to properly auth
+    """Login to the server, Post user/pass either via form or via json
     """
     if request.method == 'POST':
+        if request.is_json:
+            data = request.get_json(force=True)
+            username = data.get('username','')
+            password = data.get('password','')
+            if username==USERNAME and password==PASSWORD:
+                return jsonify({"auth-token": COOKIE_VALUE})
+            else:
+                return jsonify({"error": "Incorrect username or password"})
         username = request.form['username']
         password = request.form['password']
         if username==USERNAME and password==PASSWORD:
             resp = make_response(redirect(url_for('main')))
             resp.set_cookie(COOKIE_KEY, COOKIE_VALUE)
             return resp
+        
         flash('Incorrect Username or Password')
         return redirect(request.url)
     return render_template('login.html')
