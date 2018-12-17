@@ -142,7 +142,11 @@ class Database(object):
         Returns:
             bool: Whether or not the name is in use
         """
-        return False
+        qry = 'SELECT EXISTS(SELECT 1 FROM servers WHERE server_name = ?);'
+        self.cur.execute(qry, (name,))
+        if self.cur.fetchone()[0] == 0:
+            return False
+        return True
     
     def add_server(self, _type, data):
         """Add the settings for a server to the database

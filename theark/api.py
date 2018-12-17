@@ -13,17 +13,28 @@ def registerServer():
     """Register a new server with TheArk
     
     See docs/api-servers.md for json spec
-    TODO: Add validate of properties here
     """
     if not is_authed(request):  abort(403)
     data = request.get_json(force=True)
+    # Validate required params
+    if 'name' not in data:
+        return jsonify({"error": "'name' must be specified"})
+    name = data['name']
+    if database.is_servername_taken(name):
+        return jsonify({"error": "'{}' is already taken as a server name".format(name)})
+    count = 15
+    if 'count' in data and data['count'] != None:
+        try:
+            count = int(data['count'])
+        except ValueError:
+            return jsonify({"error": "'count' must be an integer > 0"})
     _type = 'default'
-    addresses = discover_hosts(data.get("count", 15))
+    addresses = discover_hosts(count)
     database.add_server(_type, data)
-    database.add_addresses(data.get('name'), addresses)
+    database.add_addresses(name, addresses)
     database.commit()
     return jsonify({
-        "name": data.get('name'),
+        "name": name,
         "addresses": addresses
     })
 
