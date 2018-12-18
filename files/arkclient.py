@@ -29,6 +29,13 @@ class ArkClient(object):
             except ValueError:
                 ArkApiError("Server did not send back valid json")
         elif resp.status_code == 400:
+            try:
+                data = resp.json()
+                if "error" in data:
+                    raise ArkApiError(data['error'])
+                return data
+            except ValueError:
+                pass
             ArkApiError("An invalid request was sent to the server")
         elif resp.status_code == 403:
             ArkApiError("You are not authorized to call this API function")
@@ -53,9 +60,11 @@ class ArkClient(object):
         if count:   data['count'] = count
         return self._send("post", data)
     
-    def getAddresses(self, name, count=None):
+    def getAddresses(self, name, count=None, unused=None):
         """Get the addresses for a server"""
         data = {'name': name}
         if count:
             data['count'] = count
+        if unused is not None:
+            data['unused'] = unused
         return self._send("get", data)

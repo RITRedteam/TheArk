@@ -59,6 +59,15 @@ def discover_hosts(count=20):
             break
     return list(addresses)
 
+def is_ip_taken(ip):
+    """Wrap ARPs is_ip_taken to allow anyone to call this function
+    Args:
+        ip (str): The ip to check
+    Returns:
+        bool: true if the IP is in use
+    """
+    return isIpTaken(config['interface'], ip)
+
 ## Functions that are used internally not to be called by other modules
 def _addVirtualInterface(ip, netmask, dev):
     '''

@@ -14,12 +14,14 @@ __Request Parameters:__
 |----------|----------|--------------------|------------------------------------------------|
 |  name    | string   | no                 | The name of the server                         |
 |  count   | integer  | yes (None)         | The number of IP addresses to query from The Ark |
+|  unused  | bool     | yes (false)        | Ask the server to validate that the IP is unused |
 
 __Request Example:__
 ```json
 {
     "name": "ServerName",
-    "count": 1
+    "count": 1,
+    "unused": true
 }
 ```
 

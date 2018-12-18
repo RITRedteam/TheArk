@@ -2,7 +2,7 @@ import random
 from flask import request, abort, jsonify
 
 from . import app, is_authed
-from .networking import discover_hosts
+from .networking import discover_hosts, is_ip_taken
 
 
 
@@ -18,16 +18,16 @@ def registerServer():
     data = request.get_json(force=True)
     # Validate required params
     if 'name' not in data:
-        return jsonify({"error": "'name' must be specified"})
+        return jsonify({"error": "'name' must be specified"}), 400
     name = data['name']
     if database.is_servername_taken(name):
-        return jsonify({"error": "'{}' is already taken as a server name".format(name)})
+        return jsonify({"error": "'{}' is already taken as a server name".format(name)}), 400
     count = 15
     if 'count' in data and data['count'] != None:
         try:
             count = int(data['count'])
         except ValueError:
-            return jsonify({"error": "'count' must be an integer > 0"})
+            return jsonify({"error": "'count' must be an integer > 0"}), 400
     _type = 'default'
     addresses = discover_hosts(count)
     database.add_server(_type, data)
@@ -77,13 +77,13 @@ def getAddresses():
     data = request.get_json(force=True)
     # Validate required params
     if 'name' not in data:
-        return jsonify({"error": "'name' must be specified"})
+        return jsonify({"error": "'name' must be specified"}), 400
     count = None
     if 'count' in data and data['count'] != None:
         try:
             count = int(data['count'])
         except ValueError:
-            return jsonify({"error": "'count' must be an integer > 0"})
+            return jsonify({"error": "'count' must be an integer > 0"}), 400
     
     addrs = database.get_addresses(data['name'])  # Get all the addresses for name from db
 
@@ -93,7 +93,17 @@ def getAddresses():
     # If req is only for X num of ips, shuffle it and return random X count
     if count and count < len(addrs):
         random.shuffle(addrs)
-        retval['addresses'] = [addrs.pop() for i in range(count)]
+        retval['addresses'] = []
+        for i in range(count):
+            # Make sure we have ips to pull from
+            if not addrs:
+                break
+            addr = addrs.pop()  # Get a random IP
+            # If we are asked to only return unused ip addresses
+            if data.get('unused', False):
+                if is_ip_taken(addr):
+                    continue  # If the ip is in use, move to the next one
+            retval['addresses'] += [addr]
     else:
         # Else just return all the addrs
         retval['addresses'] = addrs

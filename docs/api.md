@@ -32,9 +32,9 @@ Delete a server and remove all forwards.
 ### [/getAddresses](./api-information.md#getAddresses)
 Get assigned addreses from The Ark for the given server.
 
-### [/getServerSettings](./api-information.md#getAddresses)
+### [/getServerSettings](./api-information.md#getServerSettings)
 Return the settings that are registered for the server.
 
-### [/getNginxConfig](./api-information.md#getAddresses)
+### [/getNginxConfig](./api-information.md#getNginxConfig)
 If the server is a `redirect` server, return the NGINX server block that The Ark uses (or would use)
 to redirect the traffic.
