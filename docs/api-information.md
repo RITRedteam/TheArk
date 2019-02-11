@@ -2,9 +2,9 @@
 API functions for requesting information from the server.
 
 ## /getAddresses
-Get assigned addreses from The Ark for the given server. You may specify a count in which the server will return `count`
+Get assigned addreses from The Ark for the given Halo. You may specify a count in which the server will return `count`
 number of random addresses from the pool, this is useful for getting a random IP address to use from The Ark.
-If no `count` is specified, The Ark will return all of the addresses.
+If no `count` is specified, The Ark will return all of the addresses for the Halo.
 
 __Type:__ `GET`
 
@@ -12,14 +12,14 @@ __Request Parameters:__
 
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-|  name    | string   | no                 | The name of the server                         |
+| haloName | string   | no                 | The name of the Halo                           |
 |  count   | integer  | yes (None)         | The number of IP addresses to query from The Ark |
 |  unused  | bool     | yes (false)        | Ask the server to validate that the IP is unused |
 
 __Request Example:__
 ```json
 {
-    "name": "ServerName",
+    "haloName": "ServerName",
     "count": 1,
     "unused": true
 }
@@ -28,7 +28,7 @@ __Request Example:__
 __Response Example:__
 ```json
 {
-    "name": "ServerName",
+    "haloName": "ServerName",
     "addresses": [
         "1.1.1.1"
     ]
@@ -46,19 +46,19 @@ __Request Parameters:__
 
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-|   name   | string   | no                 | The name of the server                         |
+| haloName | string   | no                 | The name of the Halo                           |
 
 __Request Example:__
 ```json
 {
-    "name": "ServerName"
+    "haloName": "ServerName"
 }
 ```
 
 __Response Example:__
 ```json
 {
-    "name": "ServerName",
+    "haloName": "ServerName",
     "count": 20,
     "reserve": true,
     "tcp": {
@@ -76,10 +76,10 @@ __Response Example:__
 
 
 ## /getNginxConfig
-If the server is a `redirect` server, return the NGINX server block that The Ark uses (or would use)
+If the Halo is a `redirect` Halo, return the NGINX server block that The Ark uses (or would use)
 to redirect the traffic. This can be useful if you want to host redirectors on multiple boxes.
 
-> Note: If the server is not a Redirect server, the response will not contain an NGINX section.
+> Note: If the Halo is not a Redirect server, the response will not contain an NGINX section.
 
 __Type:__ `GET`
 
@@ -87,19 +87,19 @@ __Request Parameters:__
 
 | Name     | Type     | Optional (Default) | Description                                    |
 |----------|----------|--------------------|------------------------------------------------|
-| name     | string   | no                 | The name of the server                         |
+| haloName | string   | no                 | The name of the Halo                           |
 
 __Request Example:__
 ```json
 {
-    "name": "ServerName"
+    "haloName": "ServerName"
 }
 ```
 
 __Response Example:__
 ```json
 {
-    "name": "ServerName",
+    "haloName": "ServerName",
     "NGINX": "stream {\n  server {\n    listen 8.8.8.8:22;\n    proxy_pass 10.80.100.1:22;\n  }\n}"
 }
 ```

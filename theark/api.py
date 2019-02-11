@@ -8,20 +8,20 @@ from .networking import discover_hosts, is_ip_taken
 
 database = app.config["DATABASE"]
 
-@app.route('/registerServer', methods=['POST'])
-def registerServer():
-    """Register a new server with TheArk
+@app.route('/registerHalo', methods=['POST'])
+def registerHalo():
+    """Register a new Halo with TheArk
     
-    See docs/api-servers.md for json spec
+    See docs/api-halos.md for json spec
     """
     if not is_authed(request):  abort(403)
     data = request.get_json(force=True)
     # Validate required params
-    if 'name' not in data:
-        return jsonify({"error": "'name' must be specified"}), 400
-    name = data['name']
-    if database.is_servername_taken(name):
-        return jsonify({"error": "'{}' is already taken as a server name".format(name)}), 400
+    if 'haloName' not in data:
+        return jsonify({"error": "'haloName' must be specified"}), 400
+    name = data['haloName']
+    if database.is_haloname_taken(name):
+        return jsonify({"error": "'{}' is already taken as a Halo name".format(name)}), 400
     count = 15
     if 'count' in data and data['count'] != None:
         try:
@@ -30,20 +30,20 @@ def registerServer():
             return jsonify({"error": "'count' must be an integer > 0"}), 400
     _type = 'default'
     addresses = discover_hosts(count)
-    database.add_server(_type, data)
+    database.add_halo(_type, data)
     database.add_addresses(name, addresses)
     database.commit()
     return jsonify({
-        "name": name,
+        "haloName": name,
         "addresses": addresses
     })
 
 
-@app.route('/registerRedirectServer', methods=['POST'])
-def registerRedirectServer():
-    """Register a new redirect server with TheArk
+@app.route('/registerRedirectHalo', methods=['POST'])
+def registerRedirectHalo():
+    """Register a new redirect halo with TheArk
     
-    See docs/api-servers.md for json spec
+    See docs/api-halos.md for json spec
     
     TODO: Implement this function
     """
@@ -53,11 +53,11 @@ def registerRedirectServer():
     return jsonify(data)
 
 
-@app.route('/deleteServer', methods=['POST'])
-def deleteServer():
-    """Delete a server from TheArk
+@app.route('/deleteHalo', methods=['POST'])
+def deleteHalo():
+    """Delete a halo from TheArk
     
-    See docs/api-servers.md for json spec
+    See docs/api-halos.md for json spec
     
     TODO: Implement this function
     """
@@ -69,15 +69,15 @@ def deleteServer():
 
 @app.route('/getAddresses', methods=['GET'])
 def getAddresses():
-    """Get ip addresses associated with the server name
+    """Get ip addresses associated with the halo name
     
     See docs/api-information.md for json spec
     """
     if not is_authed(request):  abort(403)
     data = request.get_json(force=True)
     # Validate required params
-    if 'name' not in data:
-        return jsonify({"error": "'name' must be specified"}), 400
+    if 'haloName' not in data:
+        return jsonify({"error": "'haloName' must be specified"}), 400
     count = None
     if 'count' in data and data['count'] != None:
         try:
@@ -85,10 +85,10 @@ def getAddresses():
         except ValueError:
             return jsonify({"error": "'count' must be an integer > 0"}), 400
     
-    addrs = database.get_addresses(data['name'])  # Get all the addresses for name from db
+    addrs = database.get_addresses(data['haloName'])  # Get all the addresses for name from db
 
     retval = {}
-    retval['name'] = data['name']
+    retval['haloName'] = data['haloName']
 
     # If req is only for X num of ips, shuffle it and return random X count
     if count and count < len(addrs):
@@ -111,9 +111,9 @@ def getAddresses():
     return jsonify(retval)
 
 
-@app.route('/getServerSettings', methods=['GET'])
-def getServerSettings():
-    """Return the settings that are registered for the server.
+@app.route('/getHaloSettings', methods=['GET'])
+def getHaloSettings():
+    """Return the settings that are registered for the halo.
 
     See docs/api-information.md for json spec
     
@@ -127,7 +127,7 @@ def getServerSettings():
 
 @app.route('/getNginxConfig', methods=['GET'])
 def getNginxConfig():
-    """If the server is a `redirect` server, return the NGINX server block
+    """If the halo is a `redirect` halo, return the NGINX server block
     that The Ark uses (or would use) to redirect the traffic.
     
     See docs/api-information.md for json spec

@@ -133,12 +133,12 @@ class Database(object):
             return False
         return True
     
-    def is_servername_taken(self, name):
-        """Check if a servername is already taken in the database
+    def is_haloname_taken(self, name):
+        """Check if a halo name is already taken in the database
         
         TODO: Implement this function
         Args:
-            name (str): The name of the server
+            name (str): The name of the halo
         Returns:
             bool: Whether or not the name is in use
         """
@@ -148,7 +148,7 @@ class Database(object):
             return False
         return True
     
-    def add_server(self, _type, data):
+    def add_halo(self, _type, data):
         """Add the settings for a server to the database
         Args:
             _type (str): the type of server that is is, either 'default' or 'redirect'
@@ -156,7 +156,7 @@ class Database(object):
         Returns:
             bool: Whether or not the server was added
         """
-        name = data.get('name')
+        name = data.get('haloName')
         if _type == 'redirect':
             reserve_addresses = data.get("reserve", True)  # Default to true for redirect servers
         else:
@@ -194,7 +194,7 @@ class Database(object):
     def get_addresses(self, name):
         """Return COUNT number of addresses for the server
         Args:
-            name (str): the name of the server
+            name (str): the name of the halo
         Returns:
             list[str]: A list of all the ips assigned to the server
         """

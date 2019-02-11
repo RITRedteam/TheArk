@@ -52,17 +52,17 @@ class ArkClient(object):
             return True
         return False
     
-    def registerServer(self, name, count=None):
-        """Register a server"""
+    def registerHalo(self, haloName, count=None):
+        """Register a Halo"""
         data = {
-            "name": name
+            "haloName": haloName
         }
         if count:   data['count'] = count
         return self._send("post", data)
     
-    def getAddresses(self, name, count=None, unused=None):
-        """Get the addresses for a server"""
-        data = {'name': name}
+    def getAddresses(self, haloName, count=None, unused=None):
+        """Get the addresses for a Halo"""
+        data = {'haloName': haloName}
         if count:
             data['count'] = count
         if unused is not None:

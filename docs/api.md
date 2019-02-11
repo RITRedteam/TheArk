@@ -9,7 +9,7 @@ Responses from the server will be one of three status codes:
 
 ```json
 {
-    "error": "server name 'ServerName' is already taken"
+    "error": "Halo name 'ServerName' is already taken"
 }
 ```
 
@@ -20,21 +20,21 @@ Responses from the server will be one of three status codes:
 ## API Calls
 List of all the API calls
 
-### [/registerServer](./api-servers.md#registerServer)
-Register a new `standard` server with The Ark. See [server registration](./api-servers.md) for more information on the types of servers.
+### [/registerHalo](./api-halos.md#registerHalo)
+Register a new `standard` Halo with The Ark. See [Halo registration](./api-halos.md) for more information on the types of Halos.
 
-### [/registerRedirectServer](./api-servers.md#registerRedirectServer)
-Register a new `redirect` server with The Ark. See [server registration](./api-servers.md) for more information on the types of servers.
+### [/registerRedirectHalo](./api-halos.md#registerRedirectHalo)
+Register a new `redirect` Halo with The Ark. See [Halo registration](./api-halos.md) for more information on the types of Halos.
 
-### [/deleteServer](./api-servers.md#deleteServer)
-Delete a server and remove all forwards.
+### [/deleteHalo](./api-halos.md#deleteHalo)
+Delete a Halo and remove all forwards.
 
 ### [/getAddresses](./api-information.md#getAddresses)
-Get assigned addreses from The Ark for the given server.
+Get assigned addreses from The Ark for the given Halo.
 
-### [/getServerSettings](./api-information.md#getServerSettings)
-Return the settings that are registered for the server.
+### [/getHaloSettings](./api-information.md#getHaloSettings)
+Return the settings that are registered for the Halo.
 
 ### [/getNginxConfig](./api-information.md#getNginxConfig)
-If the server is a `redirect` server, return the NGINX server block that The Ark uses (or would use)
+If the Halo is a `redirect` Halo, return the NGINX Halo block that The Ark uses (or would use)
 to redirect the traffic.
