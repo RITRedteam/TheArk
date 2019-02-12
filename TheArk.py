@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 from theark import app
 from theark.database import Database
 from theark.networking import net_init
@@ -27,5 +28,8 @@ def cleanup():
 
 if __name__ == "__main__":
     setup()
-    app.run(host=app.config['networking'].get('base_ip', "0.0.0.0"), debug=True)
+    host = os.environ.get("ARK_LISTEN_IP", "0.0.0.0")
+    port = os.environ.get("ARK_LISTEN_PORT", "5000")
+
+    app.run(host=host, port=port, debug=True)
     cleanup()
