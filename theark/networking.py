@@ -30,7 +30,10 @@ def net_init():
     else:
         config['base_ip'] = _getIp()
         config['interface'] = _getInterfaceNameFromIp(config['base_ip'])
-    config['netmask'] = _getSubnetMaskFromIp(config['base_ip'])  # Subnet mask
+    # TODO: UNDO THIS. This is for UB
+    #config['netmask'] = _getSubnetMaskFromIp(config['base_ip'])  # Subnet mask
+    config['netmask'] = "/21"
+
 
 def discover_hosts(count=20):
     """Search through the network to discover COUNT number of IP addresses that are not in use
