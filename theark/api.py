@@ -53,6 +53,37 @@ def registerRedirectHalo():
     return jsonify(data)
 
 
+@app.route('/addAddresses', methods=['POST'])
+def addAddresses():
+    """Adds a new set of IP address to a halo
+    
+    See docs/api-information.md for json spec
+    """
+    if not is_authed(request):  abort(403)
+    data = request.get_json(force=True)
+    # Validate required params
+    if 'haloName' not in data:
+        return jsonify({"error": "'haloName' must be specified"}), 400
+    name = data['haloName']
+    if not database.is_haloname_taken(name):
+        return jsonify({"error": "'{}' is not a registered Halo name".format(name)}), 400
+    count = 15 # Default to 15 new IPs
+    if 'count' in data and data['count'] != None:
+        try:
+            count = int(data['count'])
+        except ValueError:
+            return jsonify({"error": "'count' must be an integer > 0"}), 400
+    
+    addresses = discover_hosts(count)
+    database.add_addresses(name, addresses)
+    database.commit()
+    addresses = database.get_addresses(name)
+    return jsonify({
+        "haloName": name,
+        "addresses": addresses
+    })
+
+
 @app.route('/deleteHalo', methods=['POST'])
 def deleteHalo():
     """Delete a halo from TheArk
@@ -127,10 +158,15 @@ def getHaloSettings():
 
 @app.route('/getHalos', methods=['GET'])
 def getHalos():
-    """Return all the registered
+    """Return all the registered halos from the The Ark
     """
     if not is_authed(request):  abort(403)
-    return jsonify(database.get_addresses())
+    halos = database.get_halonames()
+    halos = [server['server_name'] for server in halos if server.get('server_name', False)]
+    data = {
+        'halos': halos
+    }
+    return jsonify(data)
 
 
 @app.route('/getNginxConfig', methods=['GET'])

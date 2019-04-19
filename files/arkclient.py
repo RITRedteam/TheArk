@@ -68,3 +68,15 @@ class ArkClient(object):
         if unused is not None:
             data['unused'] = unused
         return self._send("get", data)
+    
+    def addAddresses(self, haloName, count=None):
+        """Add addresses to a Halo"""
+        data = {
+            "haloName": haloName
+        }
+        if count:   data['count'] = count
+        return self._send("post", data)
+
+    def getHalos(self):
+        """Get all the halos that are registered"""
+        return self._send("get", {})

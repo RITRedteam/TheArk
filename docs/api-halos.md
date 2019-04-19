@@ -86,6 +86,32 @@ __Response Example:__
 ```
 
 
+## /getHalos
+Get all the Halos from The Ark/
+
+__Type:__ `GET`
+
+__Request Parameters:__
+
+None
+
+__Request Example:__
+```json
+{}
+```
+
+__Response Example:__
+```json
+{
+    "halos": [
+        "halo1",
+        "halo2",
+        ...
+    ]
+}
+```
+
+
 ## /deleteHalo
 Delete a Halo from The Ark and cleanup all the forwards
 

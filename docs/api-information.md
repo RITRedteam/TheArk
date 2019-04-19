@@ -36,6 +36,37 @@ __Response Example:__
 ```
 
 
+## /addAddresses
+Add the specified number of unused addresses to the registered halo name. Returns all the addresses registered
+for that halo.
+
+__Type:__ `POST`
+
+__Request Parameters:__
+
+| Name     | Type     | Optional (Default) | Description                                    |
+|----------|----------|--------------------|------------------------------------------------|
+| haloName | string   | no                 | The name of the Halo                           |
+|  count   | integer  | yes (15)           | The number of IP addresses to query from The Ark |
+
+__Request Example:__
+```json
+{
+    "haloName": "ServerName",
+    "count": 1,
+}
+```
+
+__Response Example:__
+```json
+{
+    "haloName": "ServerName",
+    "addresses": [
+        "1.1.1.1"
+    ]
+}
+```
+
 ## /getServerSettings
 Return the settings that are registered for the server. Basically, this request will return
 the json that was sent during the `/registerServer` call.
