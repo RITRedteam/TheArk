@@ -148,6 +148,13 @@ class Database(object):
             return False
         return True
     
+    def get_halonames(self):
+        """List all the halo names that are registered
+        """
+        qry = 'SELECT * FROM servers;'
+        self.cur.execute(qry)
+        return self.newcur(self.cur)
+
     def add_halo(self, _type, data):
         """Add the settings for a server to the database
         Args:

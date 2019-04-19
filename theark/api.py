@@ -125,6 +125,14 @@ def getHaloSettings():
     return jsonify(data)
 
 
+@app.route('/getHalos', methods=['GET'])
+def getHalos():
+    """Return all the registered
+    """
+    if not is_authed(request):  abort(403)
+    return jsonify(database.get_addresses())
+
+
 @app.route('/getNginxConfig', methods=['GET'])
 def getNginxConfig():
     """If the halo is a `redirect` halo, return the NGINX server block
