@@ -10,5 +10,4 @@ WORKDIR /opt/theark
 RUN mkdir -p ./db
 RUN pip3 install -r requirements.txt
 # Run the app
-ENTRYPOINT [ "python3" ]
-CMD [ "TheArk.py" ]
+CMD ["python3", "TheArk.py"]
