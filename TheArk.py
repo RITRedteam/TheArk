@@ -12,7 +12,8 @@ def setup():
     """
     # Import the routes
     # Open a database
-    app.config['DATABASE'] = Database('files/theark.sqlite', 'files/layout.sql')
+    db_name = os.environ.get("ARK_DATABASE", "files/theark.sqlite")
+    app.config['DATABASE'] = Database(db_name, 'files/layout.sql')
     app.config['networking'] = {}
     net_init()
     from theark import routes, api  # pylint: disable=w0612
