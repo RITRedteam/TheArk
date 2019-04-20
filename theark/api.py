@@ -125,7 +125,7 @@ def getAddresses():
     if count and count < len(addrs):
         random.shuffle(addrs)
         retval['addresses'] = []
-        for i in range(count):
+        for _ in range(count):
             # Make sure we have ips to pull from
             if not addrs:
                 break
