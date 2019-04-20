@@ -109,6 +109,7 @@ def getAddresses():
     # Validate required params
     if 'haloName' not in data:
         return jsonify({"error": "'haloName' must be specified"}), 400
+    name = data['haloName']
     if not database.is_haloname_taken(name):
         return jsonify({"error": "'{}' is not a registered Halo name".format(name)}), 400
     count = None
