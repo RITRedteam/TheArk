@@ -45,7 +45,11 @@ class Hosts(object):
             self.interface = _getInterfaceNameFromIp(self.base_ip)
         self.netmask = _getSubnetMaskFromIp(self.base_ip)
 
-    def _build_hosts(self):
+    def clear_hosts(self):
+        self.hosts = []
+        self.blacklist = []
+
+    def build_hosts(self):
         """Parse through all the networks and get all possible hosts
         """
         self.hosts = set()
@@ -92,7 +96,7 @@ class Hosts(object):
         #   1. It uses less RAM _most_ of the time
         #   2. It allows the config to be dynamically changed
         #   3. We dont really have too many services that register
-        self._build_hosts()
+        self.build_hosts()
         random.shuffle(self.hosts)
         addresses = set()
         # Keep looping until we run out of ip addresses or have found enough
@@ -104,6 +108,8 @@ class Hosts(object):
             addresses.add(addr)
             if len(addresses) == count:
                 break
+        # Clear these so we get our memory back
+        self.clear_hosts()
         return list(addresses)
 
 

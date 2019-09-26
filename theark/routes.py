@@ -23,6 +23,28 @@ def main():
         return redirect(url_for('login'))
 
 
+@app.route('/debug')
+def debug():
+    if is_authed(request):
+        hosts = app.config["HOSTS"]
+        page = "The Ark is now running\n\nDefault Network: {}/{}\nInterface: {}\n\n"
+        page += "Blacklisted IP addresses ({}): \n\t{}\n\nPossible IP addresses ({}): \n\t{}\n"
+
+
+        # List all the possible IP addresses
+        hosts.build_hosts()
+
+        return page.format(hosts.base_ip, hosts.netmask, hosts.interface,
+            len(hosts.blacklisted), "\n\t".join(hosts.blacklisted),
+            len(hosts.hosts), "\n\t".join(hosts.hosts),
+        )
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/status")
+def status():
+    return "The Ark is running"
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Login to the server, Post user/pass either via form or via json
