@@ -5,7 +5,20 @@ from . import app, is_authed, USERNAME, PASSWORD, COOKIE_KEY, COOKIE_VALUE
 @app.route('/')
 def main():
     if is_authed(request):
-        return "The Ark is now running"
+        database = app.config["DATABASE"]
+        page = "The Ark is now running\n\n"
+        # List all the IP addresses that are registered
+        halos = database.get_halonames()
+
+        halos_information = []
+        for halo in halos:
+            if not halo.get('server_name', False):
+                continue
+            halos_information += [
+                "{}:\n\t".format(halo['server_name']) + "\n\t".join(database.get_addresses(halo['server_name']))
+            ]
+
+        return page + "\n\n".join(halos_information) 
     else:
         return redirect(url_for('login'))
 
