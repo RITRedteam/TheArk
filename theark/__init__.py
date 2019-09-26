@@ -1,12 +1,12 @@
 # Set up the flask app to be imported
-
+import os
 from flask import Flask
 
 
-USERNAME = 'admin'
-PASSWORD = 'password'
+USERNAME = os.environ.get("ARK_USERNAME", 'admin')
+PASSWORD = os.environ.get("ARK_PASSWORD", 'changeme')
 COOKIE_KEY = 'redteam-cookie'
-COOKIE_VALUE = 'super-secret'
+COOKIE_VALUE = os.environ.get("ARK_COOKIE", 'super-secret')
 
 app = Flask(__name__)
 app.secret_key = b'magic ip addresses'
