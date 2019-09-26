@@ -6,7 +6,7 @@ and discover unused addresses in the pool
 """
 import ipaddress
 import random
-import json
+import yaml
 import socket
 
 from .toolbox import execute
@@ -52,7 +52,7 @@ class Hosts(object):
     def load_config(self):
         try:
             with open(self.config) as fil:
-                config = json.load(fil)
+                config = yaml.safe_load(fil)
         except FileNotFoundError:
             print("'config.yml' not found. Using Default network only")
             config = {}
