@@ -29,6 +29,8 @@ class Hosts(object):
 
 
     def is_ip_taken(self, ip):
+        if self.netmask is None or self.interface is None or self.base_ip is None:
+            self._update_net_settings()
         return isIpTaken(self.interface, self.base_ip, ip) or self.database.is_ip_taken(ip)
 
 
