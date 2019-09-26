@@ -5,9 +5,7 @@
 # http://dk0d.blogspot.com/2016/07/code-for-sending-arp-request-with-raw.html
 
 
-#import fcntl
 import socket
-import struct
 from threading import Thread, Event
 
 
@@ -27,7 +25,7 @@ def isIpTaken(dev, src_ip, ip):
     listener.start()
 
     # Send an arp packet out
-    send_arp(dev, ip)
+    send_arp(dev, src_ip, ip)
     # Wait for the thread or kill it
     isdone.wait(timeout=timeout)
     isdone.set()
@@ -57,7 +55,7 @@ def listen_arp(sock, ip, done, retval):
     while not done.is_set():
         try: 
             raw = sock.recvfrom(2048)
-        except Exception:
+        except socket.timeout:
             return
         eth_header = raw[0][0:14]
         # Get the ethernet type
@@ -130,6 +128,7 @@ def send_arp(device, ip_src, ip_dst, mac_src=None):
 
 
 if __name__ == "__main__":
-    print(isIpTaken("eth0", "192.168.58.100"))
-    print(isIpTaken("eth0", "192.168.58.128"))
-    print(isIpTaken("eth0", "192.168.58.102"))
+    pass
+    #print(isIpTaken("eth0", "192.168.58.100"))
+    #print(isIpTaken("eth0", "192.168.58.128"))
+    #print(isIpTaken("eth0", "192.168.58.102"))

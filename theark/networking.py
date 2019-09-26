@@ -6,7 +6,6 @@
 
 import random
 import socket
-import struct
 from subprocess import Popen, PIPE
 from ipaddress import IPv4Network
 

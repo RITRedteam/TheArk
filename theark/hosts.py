@@ -28,7 +28,7 @@ class Hosts(object):
 
 
     def is_ip_taken(self, ip):
-        return isIpTaken(self.interface, self.base_ip, ip) or self.database.is_ip_taken(addr)
+        return isIpTaken(self.interface, self.base_ip, ip) or self.database.is_ip_taken(ip)
 
 
     def _update_net_settings(self, config):
@@ -50,8 +50,14 @@ class Hosts(object):
         """
         self.hosts = set()
         self.blacklist = set()
-        with open(self.config) as fil:
-            config = json.load(fil)
+        try:
+            with open(self.config) as fil:
+                config = json.load(fil)
+        except FileNotFoundError:
+            print("'config.yml' not found. Using Default network only")
+            config = {}
+
+        self._update_net_settings(config)
 
         # Get all the invalid hosts
         for network in config.get("invalid", []):

@@ -15,7 +15,7 @@ def registerHalo():
     
     See docs/api-halos.md for json spec
     """
-    if not is_authed(request):  abort(403)
+    if not is_authed(request): abort(403)
     data = request.get_json(force=True)
     # Validate required params
     if 'haloName' not in data:
@@ -48,7 +48,7 @@ def registerRedirectHalo():
     
     TODO: Implement this function
     """
-    if not is_authed(request):  abort(403)
+    if not is_authed(request): abort(403)
     data = request.get_json(force=True)
     data['error'] = "API call not yet implemented"
     return jsonify(data)
