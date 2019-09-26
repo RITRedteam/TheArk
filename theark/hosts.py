@@ -77,7 +77,7 @@ class Hosts(object):
         for network in config.get("valid", ["default"]):
             # Handle the defualt network (whatever the box has)
             if network == "default":
-                network = "{}/{}".format(self.base_ip, self.netmask)
+                network = "{}{}".format(self.base_ip, self.netmask)
             # Handle networks
             if "/" in network:
                 for ip in ipaddress.ip_network(network, strict=False).hosts():

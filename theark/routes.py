@@ -27,7 +27,7 @@ def main():
 def debug():
     if is_authed(request):
         hosts = app.config["HOSTS"]
-        page = "The Ark is now running\n\nDefault Network: {}/{}\nInterface: {}\n\n"
+        page = "The Ark is now running\n\nDefault Network: {}{}\nInterface: {}\n\n"
         page += "Blacklisted IP addresses ({}): \n\t{}\n\nPossible IP addresses ({}): \n\t{}\n"
 
 
