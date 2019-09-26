@@ -2,7 +2,7 @@
 
 {% block page %}
 {% for halo in halos %}
-halo['haloName'] ({{halo['addresses']|length}})
+{{halo['haloName']}} ({{halo['addresses']|length}})
 <div>
 <textarea rows="10" style="width: 66%; margin-left: 20px">
 {% for ip in halo['addresses'] %}{{ip}}

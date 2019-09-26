@@ -33,6 +33,7 @@ def registerHalo():
     addresses = hosts.discover_hosts(count)
     database.add_halo(_type, data)
     database.add_addresses(name, addresses)
+    print("got some ips", len(addresses), addresses)
     database.commit()
     return jsonify({
         "haloName": name,
