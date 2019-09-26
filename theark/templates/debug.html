@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block page %}
-<div style="text-align: center">
 <p>
     Default Network: {{base_ip}}{{netmask}}
 </p>
@@ -9,15 +8,19 @@
     Interface: {{interface}}
 </p>
 
+
 Blacklisted Addresses and Networks ({{blacklist|length}})
-<textarea maxlength="50">
+<div>
+<textarea maxlength="100">
     {% for b in blacklist %}
     {{b}}
     {% endfor %}
 </textarea>
+</div>
 
 Possible Addresses and Networks ({{hosts|length}})
-<textarea maxlength="50">
+<div>
+<textarea maxlength="100">
     {% for b in hosts %}
     {{b}}
     {% endfor %}
