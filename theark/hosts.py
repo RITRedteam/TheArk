@@ -61,7 +61,7 @@ class Hosts(object):
     def build_hosts(self):
         """Parse through all the networks and get all possible hosts
         """
-        self.hosts = set()
+        hosts = set()
         self.blacklist = set()
         config = self.load_config()
         self._update_net_settings(config)
@@ -85,12 +85,12 @@ class Hosts(object):
             if "/" in network:
                 for ip in ipaddress.ip_network(network, strict=False).hosts():
                     if ip not in self.blacklist:
-                        self.hosts.add(ip.exploded)
+                        hosts.add(ip.exploded)
                 continue
             # Handle single IP addresses
             if network not in self.blacklist:
-                self.hosts.add(network)
-            self.hosts = list(self.hosts)
+                hosts.add(network)
+            self.hosts = list(hosts)
 
     def discover_hosts(self, count=20):
         print("Discovering {} addresses to use...".format(count))

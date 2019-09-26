@@ -10,3 +10,4 @@ valid:
 
 invalid:
   - 10.2.1.10/24 # This network will not be in the pool
+  - 10.2.255.254 # Invalidate a single IP
