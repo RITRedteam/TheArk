@@ -2,11 +2,12 @@ import random
 from flask import request, abort, jsonify
 
 from . import app, is_authed
-from .networking import discover_hosts, is_ip_taken
+#from .networking import discover_hosts, is_ip_taken
 
 
 
 database = app.config["DATABASE"]
+hosts = app.config["HOSTS"]
 
 @app.route('/registerHalo', methods=['POST'])
 def registerHalo():
@@ -29,7 +30,7 @@ def registerHalo():
         except ValueError:
             return jsonify({"error": "'count' must be an integer > 0"}), 400
     _type = 'default'
-    addresses = discover_hosts(count)
+    addresses = hosts.discover_hosts(count)
     database.add_halo(_type, data)
     database.add_addresses(name, addresses)
     database.commit()
@@ -74,7 +75,7 @@ def addAddresses():
         except ValueError:
             return jsonify({"error": "'count' must be an integer > 0"}), 400
     
-    addresses = discover_hosts(count)
+    addresses = hosts.discover_hosts(count)
     database.add_addresses(name, addresses)
     database.commit()
     addresses = database.get_addresses(name)
@@ -135,7 +136,7 @@ def getAddresses():
             addr = addrs.pop()  # Get a random IP
             # If we are asked to only return unused ip addresses
             if data.get('unused', False):
-                if is_ip_taken(addr):
+                if hosts.is_ip_taken(addr):
                     continue  # If the ip is in use, move to the next one
             retval['addresses'] += [addr]
     else:

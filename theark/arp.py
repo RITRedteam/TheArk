@@ -11,7 +11,7 @@ import struct
 from threading import Thread, Event
 
 
-def isIpTaken(dev, ip):
+def isIpTaken(dev, src_ip, ip):
     '''
     The device to send the ARP to
     '''
@@ -89,7 +89,7 @@ def _getIpFromDevice(dev):
     return ip
 
 
-def send_arp(device, ip_dst, mac_src=None):
+def send_arp(device, ip_src, ip_dst, mac_src=None):
     '''
     Send an ARP request to the given raw socket
     Args:
@@ -101,7 +101,7 @@ def send_arp(device, ip_dst, mac_src=None):
         bool:   Whether or not the arp packet was sent
     '''
     # Get the IP address
-    ip_src = _getIpFromDevice(device)
+    #ip_src = _getIpFromDevice(device)
     if ip_dst == ip_src:
         return True
     # Create raw socket
