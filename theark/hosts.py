@@ -25,6 +25,7 @@ class Hosts(object):
         self.base_ip = None
         self.interface = None
         self.netmask = None
+        self._update_net_settings(self.load_config())
 
 
     def is_ip_taken(self, ip):

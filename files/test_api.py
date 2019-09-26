@@ -8,7 +8,7 @@ client = ArkClient(os.environ.get("THEARK_SERVER", "http://0.0.0.0:5000"))
 def main():
     print("logging in")
     name = "test-server"
-    if not client.login("admin", "password"):
+    if not client.login("admin", "changeme"):
         raise Exception("Couldnt log in")
     print("registering a new halo")
     reg = client.registerHalo(name)

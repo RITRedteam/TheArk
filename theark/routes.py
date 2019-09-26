@@ -14,11 +14,11 @@ def main():
         for halo in halos:
             if not halo.get('server_name', False):
                 continue
-            halos_information += [
-                "{}:\n\t".format(halo['server_name']) + "\n\t".join(database.get_addresses(halo['server_name']))
-            ]
-
-        return page + "\n\n".join(halos_information) 
+            halos_information += [{
+                "haloName": halo,
+                "addresses": database.get_addresses(halo['server_name'])
+            }]
+        return render_template("index.html", halos=halos)
     else:
         return redirect(url_for('login'))
 
