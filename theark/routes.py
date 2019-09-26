@@ -35,7 +35,7 @@ def debug():
         hosts.build_hosts()
 
         return page.format(hosts.base_ip, hosts.netmask, hosts.interface,
-            len(hosts.blacklisted), "\n\t".join(hosts.blacklisted),
+            len(hosts.blacklist), "\n\t".join(hosts.blacklist),
             len(hosts.hosts), "\n\t".join(hosts.hosts),
         )
     else:
