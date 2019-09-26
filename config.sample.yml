@@ -5,7 +5,7 @@
 interface: eth0
 
 valid:
-  - default # This will pull the network and netmask from teh default gateway
+  - default # This will pull the network and netmask from the default gateway
   - 10.2.0.0/16 # Allow this network
 
 invalid:
