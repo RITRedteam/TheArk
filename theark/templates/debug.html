@@ -11,19 +11,15 @@
 
 Blacklisted Addresses and Networks ({{blacklist|length}})
 <div>
-<textarea maxlength="100">
-    {% for b in blacklist %}
-    {{b}}
-    {% endfor %}
+<textarea rows="100" style="width: 66%; padding: 33%">
+    {{blacklist}}
 </textarea>
 </div>
 
 Possible Addresses and Networks ({{hosts|length}})
 <div>
-<textarea maxlength="100">
-    {% for b in hosts %}
-    {{b}}
-    {% endfor %}
+<textarea rows=100 style="width: 66%; padding: 33%">
+    {{hosts}}
 </textarea>
 </div>
 {% endblock %}

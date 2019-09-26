@@ -34,13 +34,17 @@ def debug():
         # List all the possible IP addresses
         hosts.build_hosts()
 
-        return render_template(
-            "debug.html", base_ip=hosts.base_ip,
-            netmask=hosts.netmask,
-            interface=hosts.interface,
-            blacklist=hosts.blacklist,
-            hosts=hosts.hosts
-            )
+        context = {
+            "base_ip": hosts.base_ip,
+            "netmask": hosts.netmask,
+            "interface": hosts.interface,
+            "blacklist": hosts.blacklist,
+            "hosts": hosts.hosts
+        }
+
+        hosts.clear_hosts()
+
+        return render_template("debug.html", **context)
     else:
         return redirect(url_for('login'))
 
