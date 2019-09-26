@@ -48,19 +48,22 @@ class Hosts(object):
     def clear_hosts(self):
         self.hosts = []
         self.blacklist = []
-
-    def build_hosts(self):
-        """Parse through all the networks and get all possible hosts
-        """
-        self.hosts = set()
-        self.blacklist = set()
+    
+    def load_config(self):
         try:
             with open(self.config) as fil:
                 config = json.load(fil)
         except FileNotFoundError:
             print("'config.yml' not found. Using Default network only")
             config = {}
+        return config
 
+    def build_hosts(self):
+        """Parse through all the networks and get all possible hosts
+        """
+        self.hosts = set()
+        self.blacklist = set()
+        config = self.load_config()
         self._update_net_settings(config)
 
         # Get all the invalid hosts

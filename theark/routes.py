@@ -32,17 +32,17 @@ def debug():
 
 
         # List all the possible IP addresses
-        hosts.build_hosts()
+        config = hosts.load_config()
+        hosts._update_net_settings(config)
 
         context = {
             "base_ip": hosts.base_ip,
             "netmask": hosts.netmask,
             "interface": hosts.interface,
-            "blacklist": hosts.blacklist,
-            "hosts": hosts.hosts
+            "blacklist": config.get("invalid", []),
+            "hosts": config.get("valid", ["{}{}".format(hosts.base_ip, hosts.netmask)])
         }
 
-        hosts.clear_hosts()
 
         return render_template("debug.html", **context)
     else:
