@@ -9,17 +9,21 @@
 </p>
 
 
-Blacklisted Addresses and Networks ({{blacklist|length}})
+PossibleAddresses and Networks ({{hosts|length}})
 <div>
-<textarea rows="100" style="width: 66%; padding: 33%">
-    {{blacklist}}
+<textarea rows="100" style="width: 66%; margin-left: 30%">
+{% for ip in hosts %}
+{{ip}}
+{% endfor %}
 </textarea>
 </div>
 
-Possible Addresses and Networks ({{hosts|length}})
+Blacklisted Addresses and Networks ({{blacklist|length}})
 <div>
-<textarea rows=100 style="width: 66%; padding: 33%">
-    {{hosts}}
+<textarea rows=100 style="width: 66%; margin-left: 30%">
+{% for ip in blacklist %}
+{{ip}}
+{% endfor %}
 </textarea>
 </div>
 {% endblock %}
