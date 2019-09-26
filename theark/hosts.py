@@ -90,7 +90,7 @@ class Hosts(object):
             # Handle single IP addresses
             if network not in self.blacklist:
                 hosts.add(network)
-            self.hosts = list(hosts)
+        self.hosts = list(hosts)
 
     def discover_hosts(self, count=20):
         print("Discovering {} addresses to use...".format(count))
