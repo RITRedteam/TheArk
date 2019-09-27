@@ -1,3 +1,5 @@
+[![](https://img.shields.io/badge/officially-hacker-red?logo=verizon)](https://github.com/RITRedteam)
+[![](https://img.shields.io/badge/destroys-blueteam-blue?logo=codeigniter)](https://github.com/RITRedteam)
 # The Ark
 The Ark manages virtual IP addresses for redteam tools. It is responsible for being the single source of truth for which virtual IPs are assigned to what redteam tools. Tools can request a list of virtual IP addressses to have reserved (e.g. [Sangheili](https://github.com/RITRedteam/Sangheili)), and the Ark will search through the network for unused IP addresses. Because the mappings need to be persistent, The Ark writes the mappings to a Sqlite3 database.
 
