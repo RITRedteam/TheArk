@@ -23,9 +23,6 @@ List of all the API calls
 ### [/registerHalo](./api-halos.md#registerHalo)
 Register a new `standard` Halo with The Ark. See [Halo registration](./api-halos.md) for more information on the types of Halos.
 
-### [/registerRedirectHalo](./api-halos.md#registerRedirectHalo)
-Register a new `redirect` Halo with The Ark. See [Halo registration](./api-halos.md) for more information on the types of Halos.
-
 ### [/deleteHalo](./api-halos.md#deleteHalo)
 Delete a Halo and remove all forwards.
 
@@ -35,6 +32,11 @@ Get assigned addreses from The Ark for the given Halo.
 ### [/getHaloSettings](./api-information.md#getHaloSettings)
 Return the settings that are registered for the Halo.
 
+> NOT IMPLEMENTED, Probably will be deprecated
+
+
 ### [/getNginxConfig](./api-information.md#getNginxConfig)
 If the Halo is a `redirect` Halo, return the NGINX Halo block that The Ark uses (or would use)
 to redirect the traffic.
+
+> NOT IMPLEMENTED, Probably will be deprecated
