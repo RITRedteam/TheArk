@@ -205,6 +205,6 @@ class Database(object):
         Returns:
             list[str]: A list of all the ips assigned to the server
         """
-        qry = "SELECT address FROM ips WHERE server_name = ?"
+        qry = "SELECT address FROM ips WHERE server_name = ? ORDER BY address ASC"
         self.cur.execute(qry, (name,))
         return [a[0] for a in self.cur.fetchall() if a]
