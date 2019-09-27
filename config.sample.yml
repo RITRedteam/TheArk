@@ -1,0 +1,13 @@
+# Sample config file where you can blacklist certain IPs/networks
+# or specify certain configs and networks
+
+# Manually specify the interface to use
+interface: eth0
+
+valid:
+  - default # This will pull the network and netmask from the default gateway
+  - 10.2.0.0/16 # Allow this network
+
+invalid:
+  - 10.2.1.10/24 # This network will not be in the pool
+  - 10.2.255.254 # Invalidate a single IP

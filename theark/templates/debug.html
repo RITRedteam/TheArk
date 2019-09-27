@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page %}
+<p>
+    Default Network: {{base_ip}}{{netmask}}
+</p>
+<p>
+    Interface: {{interface}}
+</p>
+
+
+Possible Addresses and Networks ({{hosts|length}})
+<div>
+<textarea rows="10" style="width: 66%; margin-left: 20px">
+{% for ip in hosts %}{{ip}}
+{% endfor %}
+</textarea>
+</div>
+
+Blacklisted Addresses and Networks ({{blacklist|length}})
+<div>
+<textarea rows=10 style="width: 66%; margin-left: 20px">
+{% for ip in blacklist %}{{ip}}
+{% endfor %}
+</textarea>
+</div>
+{% endblock %}

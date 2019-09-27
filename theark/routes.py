@@ -5,10 +5,52 @@ from . import app, is_authed, USERNAME, PASSWORD, COOKIE_KEY, COOKIE_VALUE
 @app.route('/')
 def main():
     if is_authed(request):
-        return "The Ark is now running"
+        database = app.config["DATABASE"]
+        page = "The Ark is now running\n\n"
+        # List all the IP addresses that are registered
+        halos = database.get_halonames()
+
+        halos_information = []
+        for halo in halos:
+            if not halo.get('server_name', False):
+                continue
+            halos_information += [{
+                "haloName": halo['server_name'],
+                "addresses": database.get_addresses(halo['server_name'])
+            }]
+        return render_template("index.html", halos=halos_information)
     else:
         return redirect(url_for('login'))
 
+
+@app.route('/debug')
+def debug():
+    if is_authed(request):
+        hosts = app.config["HOSTS"]
+        page = "The Ark is now running\n\nDefault Network: {}{}\nInterface: {}\n\n"
+        page += "Blacklisted IP addresses ({}): \n\t{}\n\nPossible IP addresses ({}): \n\t{}\n"
+
+
+        # List all the possible IP addresses
+        config = hosts.load_config()
+        hosts._update_net_settings(config)
+
+        context = {
+            "base_ip": hosts.base_ip,
+            "netmask": hosts.netmask,
+            "interface": hosts.interface,
+            "blacklist": config.get("invalid", []),
+            "hosts": config.get("valid", ["{}{}".format(hosts.base_ip, hosts.netmask)])
+        }
+
+
+        return render_template("debug.html", **context)
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/status")
+def status():
+    return "The Ark is running"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
