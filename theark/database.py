@@ -142,7 +142,7 @@ class Database(object):
         Returns:
             bool: Whether or not the name is in use
         """
-        qry = 'SELECT EXISTS(SELECT 1 FROM servers WHERE server_name = ?);'
+        qry = 'SELECT EXISTS(SELECT 1 FROM servers WHERE server_name = ? COLLATE NOCASE);'
         self.cur.execute(qry, (name,))
         if self.cur.fetchone()[0] == 0:
             return False
