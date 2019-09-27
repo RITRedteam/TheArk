@@ -15,7 +15,7 @@ def main():
             if not halo.get('server_name', False):
                 continue
             halos_information += [{
-                "haloName": halo,
+                "haloName": halo['server_name'],
                 "addresses": database.get_addresses(halo['server_name'])
             }]
         return render_template("index.html", halos=halos_information)
