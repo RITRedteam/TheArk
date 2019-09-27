@@ -5,11 +5,13 @@
 # http://dk0d.blogspot.com/2016/07/code-for-sending-arp-request-with-raw.html
 
 
+#import fcntl
 import socket
+import struct
 from threading import Thread, Event
 
 
-def isIpTaken(dev, src_ip, ip):
+def isIpTaken(dev, ip):
     '''
     The device to send the ARP to
     '''
@@ -25,7 +27,7 @@ def isIpTaken(dev, src_ip, ip):
     listener.start()
 
     # Send an arp packet out
-    send_arp(dev, src_ip, ip)
+    send_arp(dev, ip)
     # Wait for the thread or kill it
     isdone.wait(timeout=timeout)
     isdone.set()
@@ -55,7 +57,7 @@ def listen_arp(sock, ip, done, retval):
     while not done.is_set():
         try: 
             raw = sock.recvfrom(2048)
-        except socket.timeout:
+        except Exception:
             return
         eth_header = raw[0][0:14]
         # Get the ethernet type
@@ -87,7 +89,7 @@ def _getIpFromDevice(dev):
     return ip
 
 
-def send_arp(device, ip_src, ip_dst, mac_src=None):
+def send_arp(device, ip_dst, mac_src=None):
     '''
     Send an ARP request to the given raw socket
     Args:
@@ -99,7 +101,7 @@ def send_arp(device, ip_src, ip_dst, mac_src=None):
         bool:   Whether or not the arp packet was sent
     '''
     # Get the IP address
-    #ip_src = _getIpFromDevice(device)
+    ip_src = _getIpFromDevice(device)
     if ip_dst == ip_src:
         return True
     # Create raw socket
@@ -128,7 +130,6 @@ def send_arp(device, ip_src, ip_dst, mac_src=None):
 
 
 if __name__ == "__main__":
-    pass
-    #print(isIpTaken("eth0", "192.168.58.100"))
-    #print(isIpTaken("eth0", "192.168.58.128"))
-    #print(isIpTaken("eth0", "192.168.58.102"))
+    print(isIpTaken("eth0", "192.168.58.100"))
+    print(isIpTaken("eth0", "192.168.58.128"))
+    print(isIpTaken("eth0", "192.168.58.102"))
