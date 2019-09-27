@@ -110,7 +110,7 @@ class Hosts(object):
             # Make sure the ip is not in use
             if self.is_ip_taken(addr) \
                 or addr in addresses\
-                or self.database.is_ip_taken(ip):
+                or self.database.is_ip_taken(addr):
                 continue
             # Add the ip to the list
             addresses.add(addr)
