@@ -35,3 +35,32 @@ print(resp)
 
 ## Contributing
 If you want to work on this, just follow the TODOs for now
+
+## Deploying the Ark
+
+Deployment of the Ark is done best through [docker-compose](./docs/docker.md). This allows for easy configuration and can be spun up and deployed in one command.
+
+### Configuration
+Configuration of the Ark is done in two ways
+1. Environment Variables
+2. Config file
+
+Each of the methods configures a different element of the program
+
+__Sample Configuration File__  
+The config file is located by default in `config.yml` and is completely _OPTIONAL_. If no config file is specified, the default network will be used for address discovery. However, if you would like to specify certain other networks or blacklist certain addresses and hosts, the configuration file can be used.
+```
+# Manually specify the interface to use
+interface: eth0
+
+valid:
+  - default # This will pull the network and netmask from the default gateway
+  - 10.2.0.0/16 # Allow this network
+
+invalid:
+  - 10.2.1.10/24 # This network will not be in the pool
+  - 10.2.255.254 # Invalidate a single IP
+```
+
+__Environment Variables__  
+Several different environment variables are specified, to see usage for how to deploy with these environment variables, see the [documentation](./docs/environment.md)
