@@ -31,7 +31,7 @@ class Hosts(object):
     def is_ip_taken(self, ip):
         if self.interface is None:
             self._update_net_settings(self.load_config())
-        return isIpTaken(self.interface, ip) or self.database.is_ip_taken(ip)
+        return isIpTaken(self.interface, ip)
 
 
     def _update_net_settings(self, config):
@@ -108,7 +108,9 @@ class Hosts(object):
         # Keep looping until we run out of ip addresses or have found enough
         for addr in self.hosts:
             # Make sure the ip is not in use
-            if self.is_ip_taken(addr) or addr in addresses:
+            if self.is_ip_taken(addr) \
+                or addr in addresses\
+                or self.database.is_ip_taken(ip):
                 continue
             # Add the ip to the list
             addresses.add(addr)
