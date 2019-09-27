@@ -132,20 +132,6 @@ def getAddresses():
     return jsonify(retval)
 
 
-@app.route('/getHaloSettings', methods=['GET'])
-def getHaloSettings():
-    """Return the settings that are registered for the halo.
-
-    See docs/api-information.md for json spec
-    
-    TODO: Implement this function
-    """
-    if not is_authed(request):  abort(403)
-    data = request.get_json(force=True)
-    data['error'] = "API call not yet implemented"
-    return jsonify(data)
-
-
 @app.route('/getHalos', methods=['GET'])
 def getHalos():
     """Return all the registered halos from the The Ark
@@ -156,19 +142,4 @@ def getHalos():
     data = {
         'halos': halos
     }
-    return jsonify(data)
-
-
-@app.route('/getNginxConfig', methods=['GET'])
-def getNginxConfig():
-    """If the halo is a `redirect` halo, return the NGINX server block
-    that The Ark uses (or would use) to redirect the traffic.
-    
-    See docs/api-information.md for json spec
-    
-    TODO: Implement this function
-    """
-    if not is_authed(request):  abort(403)
-    data = request.get_json(force=True)
-    data['error'] = "API call not yet implemented"
     return jsonify(data)

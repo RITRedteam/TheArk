@@ -36,45 +36,6 @@ __Response Example:__
 }
 ```
 
-
-## /registerRedirectHalo
-Register a new `redirect` Halo with The Ark, The Ark will then return a list of the IP
-addresses that are assigned to it. You may specify two different types of redirect Halos,
-`http` and `tcp`.
-TCP redirect Halos will forward all traffic through the given ports. HTTP will forward the
-given path to the web URL.
-
-__Type:__ `POST`
-
-__Request Parameters:__
-
-| Name     | Type     | Optional (Default) | Description                                    |
-|----------|----------|--------------------|------------------------------------------------|
-| haloName | string   | no                 | The name of the Halo                           |
-| count    | integer  | yes (15)           | The number of IP addresses to reserve (max 50) |
-| reserve  | bool     | yes (yes)          | Whether or not TheArk should reserve these ips |
-| tcp      | dict     | yes (none)         | The TCP forward settings for the Halo        |
-| http     | dict     | yes (none)         | The HTTP forward settings for the Halo       |
-
-__Request Example:__
-```json
-{
-    "haloName": "ServerName",
-    "count": 20,
-    "reserve": true,
-    "tcp": {
-        "server": "10.80.100.1",
-        "ports": [
-            22, 443, 4444
-        ]
-    },
-    "http": {
-        "server": "http://misconfiguration.party/",
-        "path": "/"
-    }
-}
-```
-
 __Response Example:__
 ```json
 {
