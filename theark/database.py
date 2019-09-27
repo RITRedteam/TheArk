@@ -135,8 +135,7 @@ class Database(object):
     
     def is_haloname_taken(self, name):
         """Check if a halo name is already taken in the database
-        
-        TODO: Implement this function
+    
         Args:
             name (str): The name of the halo
         Returns:

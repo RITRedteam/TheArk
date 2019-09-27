@@ -5,8 +5,7 @@ The Ark manages virtual IP addresses for redteam tools. It can spin up NGINX ser
 The Ark server provides API endpoints for tools to reserve IP addresses.
 
 ## Halos
-Each server that is registered with the Ark is called a `halo`. Each Halo is assigned a group of IP addresses for its own use. The halo can also have The Ark server redirect all traffic for the target IP's to a specified 
-
+Each server that is registered with the Ark is called a `halo`. Each Halo is assigned a group of IP addresses for its own use.
 
 ## API Documentation
 Currently the API documentation describes all the different functions that The Ark implements.

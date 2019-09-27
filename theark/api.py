@@ -40,20 +40,6 @@ def registerHalo():
     })
 
 
-@app.route('/registerRedirectHalo', methods=['POST'])
-def registerRedirectHalo():
-    """Register a new redirect halo with TheArk
-    
-    See docs/api-halos.md for json spec
-    
-    TODO: Implement this function
-    """
-    if not is_authed(request): abort(403)
-    data = request.get_json(force=True)
-    data['error'] = "API call not yet implemented"
-    return jsonify(data)
-
-
 @app.route('/addAddresses', methods=['POST'])
 def addAddresses():
     """Adds a new set of IP address to a halo
