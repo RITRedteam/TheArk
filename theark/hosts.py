@@ -67,7 +67,6 @@ class Hosts(object):
         hosts = set()
         self.blacklist = set()
         config = self.load_config()
-        self._update_net_settings(config)
 
         # Get all the invalid hosts
         for network in config.get("invalid", []):
