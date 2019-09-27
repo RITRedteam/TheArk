@@ -18,7 +18,7 @@ def main():
                 "haloName": halo,
                 "addresses": database.get_addresses(halo['server_name'])
             }]
-        return render_template("index.html", halos=halos)
+        return render_template("index.html", halos=halos_information)
     else:
         return redirect(url_for('login'))
 
