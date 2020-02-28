@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block page %}
+
+Looking for more information? Try the <a href="/debug">debug</a> page.
+<br><br>
+
 {% for halo in halos %}
 {{halo['haloName']}} ({{halo['addresses']|length}})
 <div>

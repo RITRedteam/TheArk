@@ -3,7 +3,7 @@
 import os
 from arkclient import ArkClient
 
-client = ArkClient(os.environ.get("THEARK_SERVER", "http://0.0.0.0:5000"))
+client = ArkClient(os.environ.get("THEARK_SERVER", "http://0.0.0.0:80"))
 
 def main():
     print("logging in")
